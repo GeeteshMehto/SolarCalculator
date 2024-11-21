@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SunSmart: Solar Panel Calculator</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2ecc71;
+      --secondary-color: #27ae60;
+      --background-color: #f0f4f8;
+      --text-color: #2c3e50;
+      --accent-color: #f39c12;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .header h1 {
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-top: 15px;
+    }
+    .header i {
+      color: var(--primary-color);
+      font-size: 3.5rem;
+    }
+    .description {
+      text-align: center;
+      margin-bottom: 2rem;
+      background-color: #f1f8e9;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 0.5rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    .button {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 1rem;
+    }
+    .button:hover {
+      background-color: var(--secondary-color);
+    }
+    .button:disabled {
+      background-color: #b2bec3;
+      cursor: not-allowed;
+    }
+    .appliance-list {
+      margin-top: 1.5rem;
+    }
+    .appliance-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f1f8e9;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .remove-button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      border-radius: 15px;
+      padding: 2rem;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+    .modal-content h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    .features {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      background-color: #f1f8e9;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .feature {
+      text-align: center;
+      flex: 1;
+      margin: 0 10px;
+    }
+    .feature i {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    /* New Sections */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .social-icons i {
+      font-size: 2rem;
+      margin: 0 10px;
+      cursor: pointer;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+    .social-icons i:hover {
+      color: var(--secondary-color);
+    }
+    .about, .disclaimer, .buy-coffee {
+      text-align: center;
+      margin-top: 2rem;
+      background-color: #f1f8e9;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .buy-coffee-button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 1rem;
+    }
+    .buy-coffee-button:hover {
+      background-color: #e67e22;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <i class="fas fa-solar-panel"></i>
+      <h1>SunSmart Solar Calculator</h1>
+    </div>
+
+    <div class="description">
+      <h2>Optimize Your Solar Energy Potential</h2>
+      <p>Calculate the precise solar panel capacity needed for your home. Simply input your location, appliances, and daily usage to get a personalized solar solution.</p>
+    </div>
+
+    <form id="solarCalculatorForm">
+      <label for="city">Location</label>
+      <input type="text" id="city" name="city" list="cityList" placeholder="Enter your city" >
+      <datalist id="cityList">
+        {% for city in cities %}
+        <option value="{{ city.capitalize() }}"></option>
+        {% endfor %}
+      </datalist>
+
+      <label for="appliance">Appliance Type</label>
+      <select id="appliance" name="appliance" >
+        <option value="">Select an Appliance</option>
+        {% for appliance in equipment_data.keys() %}
+        <option value="{{ appliance }}">{{ appliance }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" min="1" placeholder="Number of appliances" >
+
+      <label for="usage_hours">Daily Usage (Hours)</label>
+      <input type="number" id="usage_hours" step="0.5" min="0" max="24" placeholder="Usage hours per day" >
+
+      <button type="button" id="addApplianceButton" class="button" onclick="addAppliance()">Add Appliance</button>
+
+      <div id="applianceList" class="appliance-list"></div>
+
+      <button type="submit" id="calculateButton" class="button" disabled>Calculate Solar Needs</button>
+    </form>
+
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-leaf"></i>
+        <h3>Eco-Friendly</h3>
+        <p>Reduce carbon footprint with precise solar planning</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-money-bill-wave"></i>
+        <h3>Cost-Effective</h3>
+        <p>Optimize solar investment with accurate calculations</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-chart-line"></i>
+        <h3>Personalized</h3>
+        <p>Tailored solar solutions for your specific energy needs</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2>Solar Requirement Results</h2>
+      <p id="modalMessage"></p>
+      <button onclick="closeModal()" class="button">Close</button>
+    </div>
+  </div>
+
+
+
+  <!-- New Sections -->
+    <div class="about">
+      <h2>About This Project</h2>
+      <p>This solar panel calculator helps homeowners and businesses assess their solar power needs and optimize energy usage, contributing to sustainability and cost savings.</p>
+    </div>
+
+    <div class="buy-coffee">
+      <h3>If you found this project useful, support me with a cup of coffee!</h3>
+      <button class="buy-coffee-button" onclick="window.open('https://www.buymeacoffee.com/yourlink', '_blank')">Buy Me a Coffee</button>
+    </div>
+
+    <div class="social-icons">
+      <i class="fab fa-twitter" onclick="window.open('https://twitter.com/yourprofile', '_blank')"></i>
+      <i class="fab fa-github" onclick="window.open('https://github.com/yourprofile', '_blank')"></i>
+      <i class="fab fa-linkedin" onclick="window.open('https://linkedin.com/in/yourprofile', '_blank')"></i>
+    </div>
+
+    <div class="disclaimer">
+      <h3>Disclaimer</h3>
+      <p>The results provided by this calculator are based on general estimates and should not be used as definitive solar panel installation advice. Always consult a professional for an accurate assessment.</p>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const applianceList = document.getElementById("applianceList");
+    const modal = document.getElementById("modal");
+    const modalMessage = document.getElementById("modalMessage");
+    const calculateButton = document.getElementById("calculateButton");
+    const addApplianceButton = document.getElementById("addApplianceButton");
+
+    // All input fields
+    const cityInput = document.getElementById("city");
+    const applianceSelect = document.getElementById("appliance");
+    const quantityInput = document.getElementById("quantity");
+    const usageHoursInput = document.getElementById("usage_hours");
+
+    // Disable calculate button by default
+    calculateButton.disabled = true;
+    addApplianceButton.disabled = true;
+
+    // Function to validate all input fields before enabling Add Appliance button
+    function validateInputs() {
+        const city = cityInput.value.trim();
+        const appliance = applianceSelect.value;
+        const quantity = quantityInput.value.trim();
+        const usageHours = usageHoursInput.value.trim();
+
+        const isValid =
+            city !== '' &&
+            appliance !== '' &&
+            quantity !== '' &&
+            parseInt(quantity) > 0 &&
+            usageHours !== '' &&
+            parseFloat(usageHours) > 0 &&
+            parseFloat(usageHours) <= 24;
+
+        addApplianceButton.disabled = !isValid;
+    }
+
+    // Add event listeners to validate inputs in real-time
+    cityInput.addEventListener('input', validateInputs);
+    applianceSelect.addEventListener('change', validateInputs);
+    quantityInput.addEventListener('input', validateInputs);
+    usageHoursInput.addEventListener('input', validateInputs);
+
+    // Function to add appliance
+    window.addAppliance = function() {
+        const appliance = applianceSelect.value;
+        const quantity = parseInt(quantityInput.value);
+        const usageHours = parseFloat(usageHoursInput.value);
+
+        const applianceCard = document.createElement("div");
+        applianceCard.classList.add("appliance-card");
+
+        applianceCard.innerHTML = `
+            <div class="appliance-details">
+                <div class="appliance-title">${appliance}</div>
+                <div class="appliance-info">Quantity: ${quantity}, Usage: ${usageHours} hrs/day</div>
+            </div>
+            <button type="button" class="remove-button" onclick="removeAppliance(this)">Remove</button>
+        `;
+
+        applianceList.appendChild(applianceCard);
+
+        // Reset inputs and disable add button
+        applianceSelect.selectedIndex = 0;
+        quantityInput.value = "";
+        usageHoursInput.value = "";
+        addApplianceButton.disabled = true;
+
+        // Enable calculate button since an appliance is added
+        calculateButton.disabled = false;
+    }
+
+    // Function to remove appliance
+    window.removeAppliance = function(button) {
+        button.parentElement.remove();
+
+        // Disable calculate button if no appliances remain
+        if (applianceList.children.length === 0) {
+            calculateButton.disabled = true;
+        }
+    }
+
+    // Form submission handler
+    document.getElementById("solarCalculatorForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const city = cityInput.value;
+        const appliances = [];
+        document.querySelectorAll(".appliance-card").forEach(card => {
+            const applianceName = card.querySelector(".appliance-title").textContent;
+            const quantity = parseInt(card.querySelector(".appliance-info").textContent.split("Quantity: ")[1].split(",")[0]);
+            const usageHours = parseFloat(card.querySelector(".appliance-info").textContent.split("Usage: ")[1].split(" hrs/day")[0]);
+
+            appliances.push({ appliance: applianceName, quantity: quantity, usageHours: usageHours });
+        });
+
+        const response = await fetch("/calculate-solar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ city, appliances })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            modalMessage.innerHTML = `Required solar panel capacity for ${city}: ${data.solar_requirement} kW`;
+            modal.style.display = "flex";
+        } else {
+            modalMessage.innerHTML = `Error: ${data.error}`;
+            modal.style.display = "flex";
+        }
+    });
+
+    // Function to close modal
+    window.closeModal = function() {
+        modal.style.display = "none";
+    }
+});
+</script>
+</body>
+</html>
