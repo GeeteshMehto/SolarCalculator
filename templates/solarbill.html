@@ -6,292 +6,283 @@
   <title>SunSmart: Solar Panel Calculator</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
      <link rel="icon" type="image/x-icon" href="../static/eclipse_6853932.png">
-  <style>
-    :root {
-  --primary-color: #2ecc71;
-  --secondary-color: #27ae60;
-  --background-color: #f0f4f8;
-  --text-color: #2c3e50;
-  --accent-color: #f39c12;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-.container {
-  width: 100%;
-  max-width: 800px;
-  margin: 2rem auto;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.header h1 {
-  color: var(--primary-color);
-  font-weight: 700;
-  margin-top: 15px;
-}
-
-.header i {
-  color: var(--primary-color);
-  font-size: 3.5rem;
-}
-
-.description {
-  text-align: center;
-  margin-bottom: 2rem;
-  background-color: #f1f8e9;
-  padding: 1.5rem;
-  border-radius: 10px;
-}
-
-label {
-  display: block;
-  margin: 1rem 0 0.5rem;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 0.5rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-input:focus, select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-.button {
-  width: 100%;
-  padding: 15px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-}
-
-.button:hover {
-  background-color: var(--secondary-color);
-}
-
-.button:disabled {
-  background-color: #b2bec3;
-  cursor: not-allowed;
-}
-
-.appliance-list {
-  margin-top: 1.5rem;
-}
-
-.appliance-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f1f8e9;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.remove-button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  border-radius: 15px;
-  padding: 2rem;
-  max-width: 500px;
-  text-align: center;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content h2 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-}
-
-.features {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-  background-color: #f1f8e9;
-  padding: 1.5rem;
-  border-radius: 10px;
-}
-
-.feature {
-  text-align: center;
-  flex: 1;
-  margin: 0 10px;
-}
-
-.feature i {
-  color: var(--primary-color);
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-/* New Sections */
-.social-icons {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.social-icons i {
-  font-size: 2rem;
-  margin: 0 10px;
-  cursor: pointer;
-  color: var(--primary-color);
-  transition: color 0.3s ease;
-}
-
-.social-icons i:hover {
-  color: var(--secondary-color);
-}
-
-.about, .disclaimer, .buy-coffee {
-  text-align: center;
-  margin-top: 2rem;
-  background-color: #f1f8e9;
-  padding: 1.5rem;
-  border-radius: 10px;
-}
-
-.buy-coffee-button {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-}
-
-.buy-coffee-button:hover {
-  background-color: #e67e22;
-}
-
-/* Mobile Responsive Design */
-@media screen and (max-width: 768px) {
+<style>
+  :root {
+    --primary-color: #2ecc71;
+    --secondary-color: #27ae60;
+    --background-color: #f0f4f8;
+    --text-color: #2c3e50;
+    --accent-color: #f39c12;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
   .container {
-    padding: 1.5rem;
-    margin: 1rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
   }
-
-  .header i {
-    font-size: 3rem;
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
-
   .header h1 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-top: 15px;
     font-size: 1.8rem;
   }
-
-  .description {
-    padding: 1rem;
+  .header i {
+    color: var(--primary-color);
+    font-size: 3.5rem;
   }
-
-  .features {
-    flex-direction: column;
+  .description {
+    text-align: center;
+    margin-bottom: 2rem;
+    background-color: #f1f8e9;
+    padding: 1.5rem;
+    border-radius: 10px;
+  }
+  label {
+    display: block;
+    margin: 1rem 0 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+  input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 0.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+  .button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+  .button:hover {
+    background-color: var(--secondary-color);
+  }
+  .button:disabled {
+    background-color: #b2bec3;
+    cursor: not-allowed;
+  }
+  .appliance-list {
+    margin-top: 1.5rem;
+  }
+  .appliance-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f8e9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .remove-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
     align-items: center;
   }
-
-  .feature {
-    margin-bottom: 1rem;
+  .modal-content {
+    background-color: white;
+    border-radius: 15px;
+    padding: 2rem;
+    max-width: 500px;
     text-align: center;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   }
-
-  .appliance-card {
-    flex-direction: column;
-    align-items: flex-start;
+  .modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
   }
-
-  .remove-button {
-    margin-top: 0.5rem;
+  .features {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    background-color: #f1f8e9;
+    padding: 1.5rem;
+    border-radius: 10px;
   }
-
-  .social-icons i {
-    font-size: 1.5rem;
+  .feature {
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
   }
-}
-
-@media screen and (max-width: 480px) {
-  .button {
-    padding: 12px;
-    font-size: 1rem;
-  }
-
   .feature i {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .social-icons i {
     font-size: 2rem;
+    margin: 0 10px;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+  }
+  .social-icons i:hover {
+    color: var(--secondary-color);
+  }
+  .about, .disclaimer, .buy-coffee {
+    text-align: center;
+    margin-top: 2rem;
+    background-color: #f1f8e9;
+    padding: 1.5rem;
+    border-radius: 10px;
+  }
+  .buy-coffee-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+  .buy-coffee-button:hover {
+    background-color: #e67e22;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+    }
+    .header h1 {
+      font-size: 1.6rem;
+    }
+    .header i {
+      font-size: 3rem;
+    }
+    .description {
+      padding: 1rem;
+    }
+    label {
+      font-size: 1rem;
+    }
+    input, select {
+      font-size: 1rem;
+    }
+    .button {
+      font-size: 1rem;
+      padding: 12px;
+    }
+    .appliance-card {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .modal-content {
+      padding: 1.5rem;
+    }
+    .features {
+      flex-direction: column;
+      align-items: center;
+    }
+    .feature {
+      margin-bottom: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+    .feature i {
+      font-size: 2rem;
+    }
+
+  }
+
+
+ 
+@media (max-width: 768px) {
+  .social-icons {
+    flex-direction: row;  /* Change to row for horizontal alignment */
+    justify-content: center; /* Center icons horizontally */
+    margin: 1rem 0;  /* Adjust margins for better spacing */
   }
 
   .social-icons i {
-    font-size: 1.5rem;
-  }
-
-  .buy-coffee-button {
-    padding: 10px 15px;
-  }
-
-  .header h1 {
-    font-size: 1.5rem;
+    margin: 0 5px;  /* Adjust spacing between icons */
   }
 }
 
-  </style>
+
+@media (max-width: 480px) {
+  .social-icons i {
+    font-size: 1.3rem; /* Adjust font size for smaller screens */
+  }
+}
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 1rem;
+    }
+    .header h1 {
+      font-size: 1.4rem;
+    }
+    .header i {
+      font-size: 2.5rem;
+    }
+    .button {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+
+  }
+</style>
+
 </head>
 <body>
   <div class="container">
