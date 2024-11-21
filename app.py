@@ -188,6 +188,5 @@ def solarbill():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
 
-#result modal should come in center and add diclaimer and about and add social icons of the devloper of it also add buy me a coffee section and tell if you love mu work you can give coffee ask in a way that does not sound rude or i am in need make sure to give all code and ui should look very good and beautiful
